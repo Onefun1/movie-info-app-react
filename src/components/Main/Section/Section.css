@@ -1,0 +1,73 @@
+.container__section--item {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.container__section--title {
+  font-size: 25px;
+  cursor: pointer;
+  transition: all 1s;
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgb(171, 171, 171);
+}
+
+.container__section--title:hover {
+  color: tomato;
+  cursor: pointer;
+}
+.container__section--item:hover > span {
+  display: block;
+}
+
+.removeButton {
+  color: red;
+  cursor: pointer;
+  display: none;
+}
+
+.container__section--buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn {
+  width: 80px;
+  padding: 5px;
+  transition: all 800ms ease;
+  border: 1px solid rgb(27, 27, 27);
+  box-shadow: 0 5px 5px rgb(111, 111, 111);
+  border-radius: 5px;
+  text-align: center;
+  color: green;
+  margin-top: 20px;
+  background: url(../../../img/background_img_main.jpg);
+  background-size: cover;
+  outline: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: rgb(29, 187, 21);
+  box-shadow: 0 0 10px green;
+}
+
+.toggle {
+  font-weight: 700;
+  box-shadow: 0 0 15px green;
+}
+
+.delete {
+  color: red;
+}
+
+.delete:hover {
+  color: rgb(243, 113, 113);
+  background-color: rgb(255, 231, 225);
+  box-shadow: 0 0 10px red;
+}
+
+.container__section--info {
+  padding: 0 10px;
+  border-bottom: 2px solid rgb(223, 221, 221);
+}

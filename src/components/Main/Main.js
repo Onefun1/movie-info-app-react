@@ -1,4 +1,7 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
+
+import Section from "./Section/Section";
+import Form from "./Form/Form";
 
 import "./Main.css";
 
@@ -9,8 +12,19 @@ class Main extends Component {
     inputFilter: "",
     onload: false,
     moviesWillWatch: [],
-    sort: false
+    sort: false,
+    inputFilterValue: ""
   };
+
+  componentDidMount() {
+    fetch("https://test-server-node-express.herokuapp.com/movies")
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          movies: data
+        });
+      });
+  }
 
   handleGetMoviesData = () => {
     this.setState({
@@ -49,8 +63,9 @@ class Main extends Component {
         });
 
       this.setState({
-        movies: loadedFileContentArray,
-        onload: true
+        movies: [...this.state.movies, ...loadedFileContentArray],
+        onload: true,
+        comyMovies: loadedFileContentArray
       });
     };
 
@@ -89,7 +104,6 @@ class Main extends Component {
   };
   sortByAbc = () => {
     let moviesSort = [...this.state.movies];
-    console.log(moviesSort);
     if (!this.state.sort) {
       moviesSort.sort(function(a, b) {
         var nameA = a.title.toLowerCase(),
@@ -112,124 +126,139 @@ class Main extends Component {
       sort: !this.state.sort
     });
   };
+  getDataFromServer = () => {
+    fetch("https://test-server-node-express.herokuapp.com/movies")
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          movies: data,
+          onload: true
+        });
+      });
+  };
+
+  changeInputFilterValue = e => {
+    this.setState({
+      inputFilterValue: e.target.value
+    });
+  };
+
+  addNewMovie = movie => {
+    fetch("https://test-server-node-express.herokuapp.com/movies", {
+      method: "POST",
+      body: JSON.stringify(movie)
+    })
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          movies: [...this.state.movies, movie]
+        });
+      });
+  };
 
   render() {
     const { movies } = this.state;
     return (
       <main className="container__main">
-        <button onClick={this.sortByAbc}>SORT</button>
-        <article className="container__main--inputFilter">
-          {/* <label>
-            <input
-              type="text"
-              id="inputFilter"
-              name="inputFilter"
-              value={this.state.inputFilter}
-              onChange={this.handleChangeInputFilterValue}
-              placeholder="what are we looking for?"
-            />
-          </label> */}
-          <label>
-            <input
-              type="file"
-              id="inputLoader"
-              name="inputLoader"
-              onChange={this.handleInputFileLoader}
-              placeholder="what are we looking for?"
-            />
-          </label>
+        <article className="container__main--form">
+          <Form addNewMovie={this.addNewMovie} />
         </article>
+        <article className="container__main--inputs" />
+
         {this.state.onload ? (
           <article className="container__main--moviesList">
-            {movies.map(movie => {
-              return (
-                <Section
-                  key={movie.title}
-                  movie={movie}
-                  removeItem={this.removeMovieById}
-                  addMovieToWillWatch={this.addMovieToWillWatch}
-                  removeMovieFromWillWatch={this.removeMovieFromWillWatch}
+            <div className="inputFilter">
+              <label>
+                <input
+                  className="inputFilter__input"
+                  type="text"
+                  id="inputFilter"
+                  name="inputFilter"
+                  value={this.state.inputFilterValue}
+                  onChange={this.changeInputFilterValue}
+                  placeholder="Enter your value"
                 />
-              );
+              </label>
+              <div className="wrapper__button">
+                <button className="btn sortbutton" onClick={this.sortByAbc}>
+                  {this.state.sort ? (
+                    <span>&#8593;</span>
+                  ) : (
+                    <span>&#8595;</span>
+                  )}{" "}
+                  SORT
+                </button>
+                <button className="btn" onClick={this.getDataFromServer}>
+                  Get Data
+                </button>
+              </div>
+            </div>
+
+            {movies.map(movie => {
+              if (
+                movie.title.includes(this.state.inputFilterValue) ||
+                movie.stars.join(",").includes(this.state.inputFilterValue)
+              ) {
+                return (
+                  <Section
+                    key={movie.title}
+                    movie={movie}
+                    removeItem={this.removeMovieById}
+                    addMovieToWillWatch={this.addMovieToWillWatch}
+                    removeMovieFromWillWatch={this.removeMovieFromWillWatch}
+                  />
+                );
+              } else {
+                return "";
+              }
             })}
           </article>
         ) : (
-          <h1>Chose the file and load it</h1>
+          <article className="container__main--moviesList">
+            <h1>
+              Choose the correct{" "}
+              <span style={{ color: "red" }}>
+                <b>*.txt</b>
+              </span>{" "}
+              file and{" "}
+              <label className="label_input_file">
+                Upload
+                <input
+                  className="custom-file-input"
+                  type="file"
+                  id="inputLoader"
+                  name="inputLoader"
+                  onChange={this.handleInputFileLoader}
+                  placeholder="what are we looking for?"
+                />
+              </label>{" "}
+              it! Or click on{" "}
+              <span style={{ color: "red" }}>
+                <b>
+                  <button
+                    className="getButton"
+                    onClick={this.getDataFromServer}
+                  >
+                    Get
+                  </button>
+                </b>
+              </span>{" "}
+              button and get data from server. (Heroku or LocalServer)
+              <p>
+                <a
+                  title="Heroku server data base link"
+                  alt="Heroku"
+                  href="https://test-server-node-express.herokuapp.com/movies"
+                >
+                  Heroku bd
+                </a>
+              </p>
+            </h1>
+          </article>
         )}
       </main>
     );
   }
 }
-
-const Section = props => {
-  const { title, year, format, stars, movieId } = props.movie;
-  let [open, setStatus] = useState(false);
-  let [will, setCheck] = useState(false);
-
-  function toggleWillWatch() {
-    const { movie, removeMovieFromWillWatch, addMovieToWillWatch } = props;
-    if (will) {
-      removeMovieFromWillWatch(movieId);
-      setCheck((will = !will));
-    } else {
-      addMovieToWillWatch(movie);
-      setCheck((will = !will));
-    }
-  }
-  return (
-    <section className="container__section--item">
-      <span
-        className="removeButton"
-        onClick={() => props.removeItem(movieId)}
-        style={{ float: "right" }}
-      >
-        ✖
-      </span>
-      <h1
-        className="container__section--title"
-        onClick={() => setStatus((open = !open))}
-      >
-        {title}
-      </h1>
-
-      {open ? (
-        <>
-          <div className="container__section--info">
-            <p>
-              <b>ID:</b> {movieId}
-            </p>
-            <p>
-              <b>Year:</b> {year}
-            </p>
-            <p>
-              {" "}
-              <b>Format:</b> {format}{" "}
-            </p>
-            <p>
-              {" "}
-              <b>Actors:</b> {stars.join(", ")}{" "}
-            </p>
-          </div>
-          <div className="container__section--buttons">
-            <div
-              className={will ? "btn toggle" : "btn"}
-              onClick={() => toggleWillWatch()}
-            >
-              {will ? "Added" : "Watch"}
-            </div>
-            <div
-              className="btn delete"
-              onClick={() => props.removeItem(movieId)}
-            >
-              Delete
-            </div>
-          </div>
-        </>
-      ) : (
-        ""
-      )}
-    </section>
-  );
-};
 
 export default Main;

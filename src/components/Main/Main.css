@@ -2,89 +2,71 @@
   padding: 25px;
 }
 
+.container__main--form,
 .container__main--moviesList {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   width: 40%;
   margin: auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 20px;
   box-shadow: 0 0 10px black;
+  background: url(../../img/background_img_main.jpg);
+  background-size: contain;
+  background-repeat: repeat;
 }
 
-/* START Section */
+.container__main--moviesList {
+  align-items: flex-start;
+  margin-top: 30px;
+}
 
-.container__section--item {
-  margin-bottom: 20px;
+label > .inputFilter__input {
+  padding: 5px;
+  font-size: 20px;
+  outline: none;
   width: 100%;
+  border-radius: 30px;
+  box-shadow: 0 5px 10px black;
+  text-align: center;
 }
 
-.container__section--title {
-  font-size: 25px;
-  cursor: pointer;
-  transition: all 1s;
-  text-align: center;
-  padding-bottom: 10px;
+.inputFilter {
+  width: 100%;
+  padding-bottom: 25px;
+  margin-bottom: 45px;
   border-bottom: 2px solid rgb(223, 221, 221);
 }
 
-.container__section--title:hover {
-  color: tomato;
-  cursor: pointer;
-}
-.container__section--item:hover > span {
-  display: block;
-}
-
-.removeButton {
-  color: tomato;
-  cursor: pointer;
-  display: none;
-}
-
-.container__section--buttons {
-  display: flex;
-  justify-content: space-around;
-}
-
-.btn {
-  width: 80px;
+.getButton {
+  border-radius: 50%;
   padding: 5px;
-  transition: all 800ms ease;
-  border: 1px solid #ccc;
-  box-shadow: 0 0 5px #ccc;
-  border-radius: 20px;
-  text-align: center;
-  color: green;
-  margin-top: 20px;
-}
-
-.btn:hover {
-  background-color: rgb(225, 251, 225);
+  background-color: green;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   box-shadow: 0 0 10px green;
-  color: black;
+  cursor: pointer;
+  outline: none;
+  transition: all 2s;
+}
+.getButton:hover {
+  border-radius: 20%;
+  box-shadow: 0 0 30px green;
 }
 
-.toggle {
+.label_input_file {
+  cursor: pointer;
+  border-radius: 10px;
+  color: green;
+  border: 1px solid green;
+  transition: ease 2s;
+}
+.label_input_file:hover {
+  box-shadow: 0 0 10px green;
   background-color: green;
   color: white;
 }
 
-.delete {
-  color: tomato;
+.label_input_file input[type="file"] {
+  display: none;
 }
-
-.delete:hover {
-  color: rgb(152, 152, 152);
-  background-color: rgb(255, 231, 225);
-  box-shadow: 0 0 10px tomato;
-}
-
-.container__section--info {
-  padding: 0 10px;
-  border-bottom: 2px solid rgb(223, 221, 221);
-}
-
-/* END Section */
