@@ -1,15 +1,21 @@
 {
   "files": {
-    "main.css": "/movie-info-app-react/static/css/main.30208dbb.chunk.css",
-    "main.js": "/movie-info-app-react/static/js/main.d37a4ce3.chunk.js",
-    "main.js.map": "/movie-info-app-react/static/js/main.d37a4ce3.chunk.js.map",
+    "main.css": "/movie-info-app-react/static/css/main.e9d779ce.chunk.css",
+    "main.js": "/movie-info-app-react/static/js/main.21c4c117.chunk.js",
+    "main.js.map": "/movie-info-app-react/static/js/main.21c4c117.chunk.js.map",
     "runtime~main.js": "/movie-info-app-react/static/js/runtime~main.f03daae3.js",
     "runtime~main.js.map": "/movie-info-app-react/static/js/runtime~main.f03daae3.js.map",
-    "static/js/2.b62a2150.chunk.js": "/movie-info-app-react/static/js/2.b62a2150.chunk.js",
-    "static/js/2.b62a2150.chunk.js.map": "/movie-info-app-react/static/js/2.b62a2150.chunk.js.map",
+    "static/css/2.4da26c9b.chunk.css": "/movie-info-app-react/static/css/2.4da26c9b.chunk.css",
+    "static/js/2.0d78cb9a.chunk.js": "/movie-info-app-react/static/js/2.0d78cb9a.chunk.js",
+    "static/js/2.0d78cb9a.chunk.js.map": "/movie-info-app-react/static/js/2.0d78cb9a.chunk.js.map",
     "index.html": "/movie-info-app-react/index.html",
-    "precache-manifest.5635fce79ecb44114a065ebfb5247d08.js": "/movie-info-app-react/precache-manifest.5635fce79ecb44114a065ebfb5247d08.js",
+    "precache-manifest.8b11c536f13456e1934e1baf28d4ef44.js": "/movie-info-app-react/precache-manifest.8b11c536f13456e1934e1baf28d4ef44.js",
     "service-worker.js": "/movie-info-app-react/service-worker.js",
-    "static/css/main.30208dbb.chunk.css.map": "/movie-info-app-react/static/css/main.30208dbb.chunk.css.map"
+    "static/css/2.4da26c9b.chunk.css.map": "/movie-info-app-react/static/css/2.4da26c9b.chunk.css.map",
+    "static/css/main.e9d779ce.chunk.css.map": "/movie-info-app-react/static/css/main.e9d779ce.chunk.css.map",
+    "static/media/App.css": "/movie-info-app-react/static/media/background_img_body.5029ecae.jpg",
+    "static/media/Main.css": "/movie-info-app-react/static/media/background_img_main.caf07e10.jpg",
+    "static/media/all.css": "/movie-info-app-react/static/media/fa-solid-900.f9b8a1aa.eot",
+    "static/media/index.css": "/movie-info-app-react/static/media/lato-v16-latin-regular.b8ee546a.woff"
   }
 }
