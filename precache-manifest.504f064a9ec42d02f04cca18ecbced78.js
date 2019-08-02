@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "476e9091cbd1ddf2c9200f3d0a30b800",
+    "revision": "167039f02a0989adf57258674da698d4",
     "url": "/movie-info-app-react/index.html"
   },
   {
@@ -8,16 +8,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/movie-info-app-react/static/css/2.4da26c9b.chunk.css"
   },
   {
-    "revision": "0609d56c20a6869716db",
-    "url": "/movie-info-app-react/static/css/main.e9d779ce.chunk.css"
+    "revision": "c52619a6f8f421fb80c0",
+    "url": "/movie-info-app-react/static/css/main.32253bf7.chunk.css"
   },
   {
     "revision": "2dec5ed4e68cb8b7dc2c",
     "url": "/movie-info-app-react/static/js/2.0d78cb9a.chunk.js"
   },
   {
-    "revision": "0609d56c20a6869716db",
-    "url": "/movie-info-app-react/static/js/main.21c4c117.chunk.js"
+    "revision": "c52619a6f8f421fb80c0",
+    "url": "/movie-info-app-react/static/js/main.9f2ab436.chunk.js"
   },
   {
     "revision": "414a0e5436e4c66067df",
