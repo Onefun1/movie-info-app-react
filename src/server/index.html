@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Test page server</title>
+  </head>
+  <body>
+    <form id="my-form">
+      <h3>Add film</h3>
+
+      <p>
+        <label>
+          Title
+          <input name="title" />
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Year
+          <input name="year" />
+        </label>
+      </p>
+      <p>
+        <label>
+          Format
+          <input name="format" />
+        </label>
+      </p>
+      <p>
+        <label>
+          Actors (Stars)
+          <input name="stars" />
+        </label>
+      </p>
+
+      <button>Send</button>
+    </form>
+
+    <div id="films"></div>
+
+    <script>
+      const form = document.getElementById("my-form");
+      const list = document.getElementById("films");
+      let movies = [];
+      render();
+      getUsers();
+      form.onsubmit = event => {
+        event.preventDefault();
+        let date = new Date();
+        const movie = {
+          title: form.elements.title.value,
+          year: form.elements.year.value,
+          format: form.elements.format.value,
+          stars: form.elements.stars.value,
+          movieId: date.getTime() + Math.random()
+        };
+        createUser(movie);
+      };
+      function createUser(movie) {
+        fetch("https://test-server-node-express.herokuapp.com/movies", {
+          method: "POST",
+          body: JSON.stringify(movie)
+        })
+          .then(res => res.json())
+          .then(data => {
+            movies = data;
+            render();
+          });
+      }
+      function getUsers() {
+        fetch("https://test-server-node-express.herokuapp.com/movies")
+          .then(res => res.json())
+          .then(data => {
+            movies = data;
+            render();
+          });
+      }
+      function render() {
+        list.innerHTML = `
+      <h3>Movies</h3>
+      <ul>
+        ${movies
+          .map(movie => {
+            return `
+          <li><div>
+            <p> Title: ${movie.title}</p>
+            <p>Year: ${movie.year}</p>
+            <p> Format: ${movie.format}</p>
+            <p> Actors: ${movie.stars} </p>
+            </div></li>
+        `;
+          })
+          .join("")}
+      </ul>
+    `;
+      }
+    </script>
+  </body>
+</html>
