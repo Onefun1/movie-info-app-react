@@ -11,7 +11,7 @@ export default function Header(props) {
         <i className="animated infinite pulse fas fa-film">{""}</i>
       </div>
       <div className="header__title">
-        <span className="animated fadeInDown delay-2s">MOVIE LIBRARY</span>
+        <span className="animated fadeInDown delay-2s">MOVIES LIBRARY</span>
       </div>
       <div className="header__authorization">
         {" "}
