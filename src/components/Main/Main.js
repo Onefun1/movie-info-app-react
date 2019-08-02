@@ -16,22 +16,6 @@ class Main extends Component {
     inputFilterValue: ""
   };
 
-  componentDidMount() {
-    fetch("https://test-server-node-express.herokuapp.com/movies")
-      .then(res => res.json())
-      .then(data => {
-        this.setState({
-          movies: data
-        });
-      });
-  }
-
-  handleGetMoviesData = () => {
-    this.setState({
-      onload: true
-    });
-  };
-
   handleInputFileLoader = e => {
     let file = e.target.files[0];
     let reader = new FileReader();
@@ -64,14 +48,15 @@ class Main extends Component {
 
       this.setState({
         movies: [...this.state.movies, ...loadedFileContentArray],
-        onload: true,
-        comyMovies: loadedFileContentArray
+        onload: true
       });
     };
+  };
 
-    reader.onerror = function() {
-      console.log(reader.error);
-    };
+  handleGetMoviesData = () => {
+    this.setState({
+      onload: true
+    });
   };
 
   removeMovieById = id => {
@@ -192,12 +177,23 @@ class Main extends Component {
                   Get Data
                 </button>
               </div>
+              <p className="movies-willwatch">
+                Movies will watch:{" "}
+                <b style={{ color: "blue" }}>
+                  {this.state.moviesWillWatch.length}
+                </b>
+              </p>
             </div>
 
             {movies.map(movie => {
               if (
-                movie.title.includes(this.state.inputFilterValue) ||
-                movie.stars.join(",").includes(this.state.inputFilterValue)
+                movie.title
+                  .toLowerCase()
+                  .includes(this.state.inputFilterValue.toLowerCase()) ||
+                movie.stars
+                  .join(",")
+                  .toLowerCase()
+                  .includes(this.state.inputFilterValue.toLowerCase())
               ) {
                 return (
                   <Section
@@ -221,7 +217,7 @@ class Main extends Component {
                 <b>*.txt</b>
               </span>{" "}
               file on PC or this project directory{" "}
-              <a href="../../sample_movies[756].txt" download>
+              <a href="./sample_movies[756].txt" download="sample_movies.txt">
                 sample_movies.txt
               </a>{" "}
               and{" "}

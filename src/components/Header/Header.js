@@ -4,7 +4,7 @@ import "./Header.css";
 import "../../../node_modules/@fortawesome/fontawesome-free/css/all.css";
 import "../../../node_modules/animate.css/animate.css";
 
-export default function Header() {
+export default function Header(props) {
   return (
     <div className="header">
       <div className="header__logo">

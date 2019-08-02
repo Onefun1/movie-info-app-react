@@ -37,6 +37,7 @@ label > .inputFilter__input {
   padding-bottom: 25px;
   margin-bottom: 45px;
   border-bottom: 2px solid rgb(223, 221, 221);
+  text-align: center;
 }
 
 .getButton {
