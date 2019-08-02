@@ -220,7 +220,11 @@ class Main extends Component {
               <span style={{ color: "red" }}>
                 <b>*.txt</b>
               </span>{" "}
-              file and{" "}
+              file on PC or this project directory{" "}
+              <a href="../../sample_movies[756].txt" download>
+                sample_movies.txt
+              </a>{" "}
+              and{" "}
               <label className="label_input_file">
                 Upload
                 <input
