@@ -112,7 +112,7 @@ class Main extends Component {
     });
   };
   getDataFromServer = () => {
-    fetch("https://test-server-node-express.herokuapp.com/movies")
+    fetch("http://127.0.0.1:3000/movies")
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -129,7 +129,7 @@ class Main extends Component {
   };
 
   addNewMovie = movie => {
-    fetch("https://test-server-node-express.herokuapp.com/movies", {
+    fetch("http://127.0.0.1:3000/movies", {
       method: "POST",
       body: JSON.stringify(movie)
     })
