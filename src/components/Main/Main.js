@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 import Section from "./Section/Section";
 import Form from "./Form/Form";
@@ -116,7 +118,7 @@ class Main extends Component {
       .then(res => res.json())
       .then(data => {
         this.setState({
-          movies: data,
+          movies: [...this.state.movies, ...data],
           onload: true
         });
       });
@@ -132,13 +134,41 @@ class Main extends Component {
     fetch("https://test-server-node-express.herokuapp.com/movies", {
       method: "POST",
       body: JSON.stringify(movie)
-    })
-      .then(res => res.json())
-      .then(data => {
-        this.setState({
-          movies: [...this.state.movies, movie]
-        });
-      });
+    });
+
+    this.setState({
+      movies: [...this.state.movies, movie]
+    });
+  };
+
+  removeMovieByIdFromServer = id => {
+    confirmAlert({
+      title: "Confirm to detete from server",
+      message: "Are you sure to do this.",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => {
+            this.removeMovieById(id);
+            fetch(
+              "https://test-server-node-express.herokuapp.com/movies/delete",
+              {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(id)
+              }
+            );
+          }
+        },
+        {
+          label: "No",
+          onClick: () => null
+        }
+      ]
+    });
   };
 
   render() {
@@ -173,6 +203,17 @@ class Main extends Component {
                   )}{" "}
                   SORT
                 </button>
+                <label className="label_input_file file">
+                  Upload
+                  <input
+                    className="custom-file-input"
+                    type="file"
+                    id="inputLoader"
+                    name="inputLoader"
+                    onChange={this.handleInputFileLoader}
+                    placeholder="what are we looking for?"
+                  />
+                </label>{" "}
                 <button className="btn" onClick={this.getDataFromServer}>
                   Get Data
                 </button>
@@ -202,6 +243,7 @@ class Main extends Component {
                     removeItem={this.removeMovieById}
                     addMovieToWillWatch={this.addMovieToWillWatch}
                     removeMovieFromWillWatch={this.removeMovieFromWillWatch}
+                    removeMovieByIdFromServer={this.removeMovieByIdFromServer}
                   />
                 );
               } else {
@@ -216,11 +258,7 @@ class Main extends Component {
               <span style={{ color: "red" }}>
                 <b>*.txt</b>
               </span>{" "}
-              file on PC or this project directory{" "}
-              <a href="./sample_movies[756].txt" download="sample_movies.txt">
-                sample_movies.txt
-              </a>{" "}
-              and{" "}
+              file on PC or this project directory named sample_movies[756] and{" "}
               <label className="label_input_file">
                 Upload
                 <input

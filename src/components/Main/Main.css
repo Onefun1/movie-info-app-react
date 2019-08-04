@@ -56,12 +56,18 @@ label > .inputFilter__input {
 }
 
 .label_input_file {
+  margin-top: 20px;
   cursor: pointer;
   border-radius: 10px;
   color: green;
   border: 1px solid green;
   transition: ease 2s;
 }
+
+.file {
+  padding: 5px;
+}
+
 .label_input_file:hover {
   box-shadow: 0 0 10px green;
   background-color: green;
