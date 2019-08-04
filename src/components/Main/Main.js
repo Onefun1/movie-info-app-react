@@ -52,13 +52,14 @@ class Main extends Component {
         movies: [...this.state.movies, ...loadedFileContentArray],
         onload: true
       });
-    };
-  };
 
-  handleGetMoviesData = () => {
-    this.setState({
-      onload: true
-    });
+      console.log(...loadedFileContentArray);
+
+      fetch("http://127.0.0.1:5050/movies", {
+        method: "POST",
+        body: JSON.stringify(...loadedFileContentArray)
+      });
+    };
   };
 
   removeMovieById = id => {
