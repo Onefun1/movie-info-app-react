@@ -53,8 +53,6 @@ class Main extends Component {
         onload: true
       });
 
-      console.log(...loadedFileContentArray);
-
       fetch("http://127.0.0.1:5050/movies", {
         method: "POST",
         body: JSON.stringify(...loadedFileContentArray)
