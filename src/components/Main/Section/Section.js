@@ -60,7 +60,7 @@ const Section = props => {
             </div>
             <div
               className="btn delete"
-              onClick={() => props.removeItem(movieId)}
+              onClick={() => props.removeMovieByIdFromServer(movieId)}
             >
               Delete
             </div>

@@ -8,7 +8,7 @@ export default function Form(props) {
   const inputFormatRef = React.createRef();
   const inputStarsRef = React.createRef();
 
-  let [corect, setStatus] = useState(true);
+  let [correct, setStatus] = useState(true);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -20,7 +20,7 @@ export default function Form(props) {
       inputFormatRef.current.value &&
       inputStarsRef.current.value
     ) {
-      setStatus((corect = true));
+      setStatus((correct = true));
       let newMovie = {
         title: inputTitleRef.current.value,
         year: inputYearRef.current.value,
@@ -35,14 +35,14 @@ export default function Form(props) {
       inputFormatRef.current.value = "";
       inputStarsRef.current.value = "";
     } else {
-      setStatus((corect = false));
+      setStatus((correct = false));
       return;
     }
   };
   return (
     <div className="contaiter__form">
       <form className="form">
-        {!corect ? (
+        {!correct ? (
           <h3 style={{ color: "red", textAlign: "center" }}>Wrong form</h3>
         ) : (
           ""
