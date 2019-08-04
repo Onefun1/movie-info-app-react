@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const bodyParser = require("body-parser");
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5050;
 
 let movies = [];
 readMovies();
@@ -67,6 +67,18 @@ app.post("/movies", (req, res) => {
       res.json(movies);
     });
   });
+});
+
+app.post("/movies/delete", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+
+  const idMovieToDel = JSON.parse(req.body);
+  let newMovieList = movies.filter(movie => {
+    return movie.movieId !== idMovieToDel;
+  });
+  movies = newMovieList;
+  readMovies();
+  writeMovies();
 });
 
 app.listen(port, () =>

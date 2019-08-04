@@ -46,7 +46,7 @@
       const list = document.getElementById("films");
       let movies = [];
       render();
-      getUsers();
+      getMovies();
       form.onsubmit = event => {
         event.preventDefault();
         let date = new Date();
@@ -57,10 +57,10 @@
           stars: form.elements.stars.value,
           movieId: date.getTime() + Math.random()
         };
-        createUser(movie);
+        createMovie(movie);
       };
-      function createUser(movie) {
-        fetch("https://test-server-node-express.herokuapp.com/movies", {
+      function createMovie(movie) {
+        fetch("http://localhost:5050/movies", {
           method: "POST",
           body: JSON.stringify(movie)
         })
@@ -70,32 +70,49 @@
             render();
           });
       }
-      function getUsers() {
-        fetch("https://test-server-node-express.herokuapp.com/movies")
+      function getMovies() {
+        fetch("http://localhost:5050/movies")
           .then(res => res.json())
           .then(data => {
             movies = data;
             render();
           });
       }
+
+      function deleteMovie(id) {
+        fetch("http://127.0.0.1:5050/movies/delete", {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(id)
+        });
+        // getMovies();
+        // render();
+      }
+
       function render() {
         list.innerHTML = `
-      <h3>Movies</h3>
-      <ul>
-        ${movies
-          .map(movie => {
-            return `
-          <li><div>
-            <p> Title: ${movie.title}</p>
-            <p>Year: ${movie.year}</p>
-            <p> Format: ${movie.format}</p>
-            <p> Actors: ${movie.stars} </p>
-            </div></li>
-        `;
-          })
-          .join("")}
-      </ul>
-    `;
+        <h3>Movies</h3>
+        <ul>
+          ${movies
+            .map(movie => {
+              return `
+            <li><div>
+              <p> Title: ${movie.title}</p>
+              <p>Year: ${movie.year}</p>
+              <p> Format: ${movie.format}</p>
+              <p> Actors: ${movie.stars} </p>
+              </div>
+              <button onclick="deleteMovie(${movie.movieId})">Del
+              </button>
+                </li>
+          `;
+            })
+            .join("")}
+        </ul>
+      `;
       }
     </script>
   </body>
