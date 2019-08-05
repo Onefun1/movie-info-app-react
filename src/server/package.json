@@ -1,0 +1,27 @@
+{
+  "name": "db-server-node-express-heroku",
+  "version": "1.0.0",
+  "description": "Used to server API calls",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Onefun1/db-server-node-express-heroku.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Onefun1/db-server-node-express-heroku/issues"
+  },
+  "homepage": "https://onefun1.github.io/db-server-node-express-heroku/",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.1",
+    "pg": "^7.12.0"
+  }
+}

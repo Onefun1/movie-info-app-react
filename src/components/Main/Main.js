@@ -52,6 +52,10 @@ class Main extends Component {
         movies: [...this.state.movies, ...loadedFileContentArray],
         onload: true
       });
+      fetch("https://test-server-node-express.herokuapp.com/movies", {
+        method: "POST",
+        body: JSON.stringify(...loadedFileContentArray)
+      });
     };
   };
 
