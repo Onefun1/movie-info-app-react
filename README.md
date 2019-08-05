@@ -1,3 +1,3 @@
-# [Prewiev gh-pages](https://onefun1.github.io/movie-info-app-react/)
+## [Prewiev](https://onefun1.github.io/movie-info-app-react/) --- gh-pages
 
-## For correct work Load the file => sample_movies[756].txt => from src directory of this project.
+## sample_movies[756].txt is in groject folder.
