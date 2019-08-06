@@ -12,8 +12,11 @@ export default function Form(props) {
   let currentYear = date.getFullYear();
 
   let [correct, setStatus] = useState(true);
+  let [send, formStatus] = useState(false);
 
-  const handleSubmit = e => {
+  let newMovie = {};
+
+  const handleSubmit = () => {
     if (
       inputTitleRef.current.value &&
       inputYearRef.current.value &&
@@ -21,23 +24,27 @@ export default function Form(props) {
       inputStarsRef.current.value
     ) {
       setStatus((correct = true));
-      let newMovie = {
+      newMovie = {
         title: inputTitleRef.current.value,
         year: inputYearRef.current.value,
         format: inputFormatRef.current.value,
         stars: inputStarsRef.current.value.split(","),
         movieId: date.getTime() + Math.random()
       };
-
-      props.addNewMovie(newMovie);
-      inputTitleRef.current.value = "";
-      inputYearRef.current.value = "";
-      inputFormatRef.current.value = "DVD";
-      inputStarsRef.current.value = "";
     } else {
       setStatus((correct = false));
       return;
     }
+  };
+
+  const sendFormValues = e => {
+    e.preventDefault();
+    props.addNewMovie(newMovie);
+    inputTitleRef.current.value = "";
+    inputYearRef.current.value = "";
+    inputFormatRef.current.value = "VHS";
+    inputStarsRef.current.value = "";
+    formStatus((send = true));
   };
 
   const errorInlineStyle = {
@@ -46,7 +53,12 @@ export default function Form(props) {
   };
   return (
     <div className="contaiter__form">
-      <form className="form">
+      <form className="form" onSubmit={sendFormValues}>
+        {send ? (
+          <h4 style={{ color: "green" }}>Movie was added in your list</h4>
+        ) : (
+          ""
+        )}
         {!correct ? (
           <>
             <h4 style={errorInlineStyle}>Wrong form</h4>
@@ -65,7 +77,7 @@ export default function Form(props) {
             required
             placeholder="Enter film title"
             autoComplete="off"
-            pattern="^[а-яА-ЯёЁa-zA-Z0-9]+$"
+            pattern="^[а-яА-ЯёЁa-zA-Z0-9- ]+$"
             ref={inputTitleRef}
           />
         </label>
@@ -101,7 +113,7 @@ export default function Form(props) {
             required
             placeholder="FirstName LastName, FirstName LastName... "
             autoComplete="off"
-            pattern="\^[a-zA-Z][a-zA-Z-_\.\,]{1,20}$\"
+            pattern="[A-Za-zА-Яа-яЁё]+(\s+[A-Za-zА-Яа-яЁё,]+)?"
             ref={inputStarsRef}
           />
         </label>
