@@ -256,7 +256,6 @@ class Main extends Component {
                 </b>
               </p>
             </div>
-
             {movies.map(movie => {
               if (
                 movie.title
@@ -310,7 +309,6 @@ class Main extends Component {
                   id="inputLoader"
                   name="inputLoader"
                   onChange={this.handleInputFileLoader}
-                  placeholder="what are we looking for?"
                 />
               </label>{" "}
               it! Or click on{" "}
