@@ -1,4 +1,4 @@
-# Инструкция по запуску приложения movie-info-app-react.
+# Инструкция по запуску приложения [movie-info-app-react](https://github.com/Onefun1/movie-info-app-react/tree/local)
 
 1.	Запуск локально
 
