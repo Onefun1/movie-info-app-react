@@ -56,7 +56,7 @@ export default function Form(props) {
             required
             placeholder="Enter film title"
             autoComplete="off"
-            pattern="^[A-ZА-ЯЁ]{1}[a-zа-яё]+$"
+            pattern="^[а-яА-ЯёЁa-zA-Z0-9]+$"
             ref={inputTitleRef}
           />
         </label>
@@ -79,9 +79,7 @@ export default function Form(props) {
           Format
           <select type="text" name="format" id="format" ref={inputFormatRef}>
             <option value="VHS">VHS</option>
-            <option selected value="DVD">
-              DVD
-            </option>
+            <option value="DVD">DVD</option>
             <option value="Blu-Ray">Blu-Ray</option>
           </select>
         </label>
@@ -94,7 +92,7 @@ export default function Form(props) {
             required
             placeholder="FirstName LastName, FirstName LastName... "
             autoComplete="off"
-            pattern="^[a-zA-Z][a-zA-Z-_\.\,]{1,20}$"
+            pattern="\^[a-zA-Z][a-zA-Z-_\.\,]{1,20}$\"
             ref={inputStarsRef}
           />
         </label>

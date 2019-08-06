@@ -41,7 +41,7 @@ app.get("/movies", (req, res) => {
 
 app.post("/movies", (req, res) => {
   const newMovie = JSON.parse(req.body);
-  movies.push(newMovie);
+  movies.push(...newMovie);
   writeMovies();
 
   res.set("Access-Control-Allow-Origin", "*");
