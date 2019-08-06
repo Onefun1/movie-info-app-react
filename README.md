@@ -1,3 +1,5 @@
-# [Prewiev gh-pages](https://onefun1.github.io/movie-info-app-react/)
+## [Prewiev](https://onefun1.github.io/movie-info-app-react/) --- gh-pages
 
-## For correct work Load the file => sample_movies[756].txt => from src directory in this project.
+## [DB](https://test-server-node-express.herokuapp.com/movies) --- Heroku
+
+## sample_movies[756].txt is in project folder.
