@@ -39,11 +39,20 @@ export default function Form(props) {
       return;
     }
   };
+
+  const errorInlineStyle = {
+    color: "red",
+    textAlign: "center"
+  };
   return (
     <div className="contaiter__form">
       <form className="form">
         {!correct ? (
-          <h3 style={{ color: "red", textAlign: "center" }}>Wrong form</h3>
+          <>
+            <h4 style={errorInlineStyle}>Wrong form</h4>
+            <span style={errorInlineStyle}>Fill all lines, please</span>
+            <br />
+          </>
         ) : (
           ""
         )}

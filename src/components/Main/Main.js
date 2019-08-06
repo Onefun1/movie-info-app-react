@@ -19,41 +19,61 @@ class Main extends Component {
       sort: false,
       inputFilterValue: "",
       formatValid: true,
-      error: null
+      error: null,
+      fileType: ""
     };
   }
 
   handleInputFileLoader = e => {
-    try {
-      let file = e.target.files[0];
-      let reader = new FileReader();
+    let file = e.target.files[0];
+    let reader = new FileReader();
 
-      reader.readAsText(file);
+    // if (file.type !== "text/plain") {     // проверка на тип файла отличающегося от txt
+    //   console.log(file.type);
+    // }
 
-      reader.onload = () => {
+    reader.readAsText(file);
+
+    reader.onload = () => {
+      try {
         let loadedFileContentArray = reader.result
           .split("\n\n")
           .filter(Boolean)
           .map(item => {
             const [title, year, format, stars] = item.split("\n");
 
-            const foo = value => value.split(":")[1].trim();
+            const splitTrimFunc = value => value.split(":")[1].trim();
             const getUniqueId = () => {
               const date = new Date();
 
               return date.getTime() + Math.random();
             };
 
-            return {
-              title: foo(title),
-              year: foo(year),
-              format: foo(format),
-              stars: foo(stars)
-                .split(",")
-                .map(item => item.trim()),
-              movieId: getUniqueId()
-            };
+            if (
+              splitTrimFunc(format) === "DVD" ||
+              splitTrimFunc(format) === "VHS" ||
+              splitTrimFunc(format) === "Blu-Ray"
+            ) {
+              return {
+                title: splitTrimFunc(title),
+                year: splitTrimFunc(year),
+                format: splitTrimFunc(format),
+                stars: splitTrimFunc(stars)
+                  .split(",")
+                  .map(item => item.trim()),
+                movieId: getUniqueId()
+              };
+            } else {
+              return this.setState({
+                formatValid: false,
+                error: "Wrong format"
+              });
+            }
           });
+
+        if (this.state.formatValid === false && this.state.error) {
+          return;
+        }
 
         this.setState({
           movies: [...this.state.movies, ...loadedFileContentArray],
@@ -61,15 +81,15 @@ class Main extends Component {
           formatValid: true
         });
 
-        fetch("http://127.0.0.1:5050/movies", {
-          method: "POST",
-          mode: "no-cors",
-          body: JSON.stringify(loadedFileContentArray)
-        });
-      };
-    } catch (error) {
-      this.setState({ error, formatValid: false });
-    }
+        // fetch("http://127.0.0.1:5050/movies", {                // Отправка загруженого контента на сервер с подальшем его сохранением в базе.
+        //   method: "POST",
+        //   mode: "no-cors",
+        //   body: JSON.stringify(loadedFileContentArray)
+        // });
+      } catch (error) {
+        this.setState({ error });
+      }
+    };
   };
 
   removeMovieById = id => {
@@ -180,16 +200,17 @@ class Main extends Component {
   // };
 
   render() {
-    if (this.state.error) {
-      return <h1>Отловил ошибку.</h1>;
-    }
-    const { movies } = this.state;
+    const { movies, error, formatValid } = this.state;
+    const inlineErrorStyle = {
+      color: "red"
+    };
     return (
       <main className="container__main">
         <article className="container__main--form">
           <Form addNewMovie={this.addNewMovie} />
         </article>
         <article className="container__main--inputs" />
+
         {this.state.onload ? (
           <article className="container__main--moviesList">
             <div className="inputFilter">
@@ -262,7 +283,19 @@ class Main extends Component {
           </article>
         ) : (
           <article className="container__main--moviesList">
-            {this.state.formatValid ? "" : <h1>Format is not Valid</h1>}
+            {!error ? (
+              ""
+            ) : (
+              <>
+                <h1 style={inlineErrorStyle}>
+                  Sorry, wrong {formatValid ? <b>FILE</b> : <b>FORMAT</b>}!
+                </h1>
+                <span style={inlineErrorStyle}>
+                  Choose the corret {formatValid ? <b>FILE</b> : <b>FORMAT</b>},
+                  please.
+                </span>
+              </>
+            )}
             <h1>
               Choose the correct{" "}
               <span style={{ color: "red" }}>
