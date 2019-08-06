@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { confirmAlert } from "react-confirm-alert";
+// import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
 import Section from "./Section/Section";
@@ -140,32 +140,32 @@ class Main extends Component {
     });
   };
 
-  removeMovieByIdFromServer = id => {
-    confirmAlert({
-      title: "Confirm to detete from server",
-      message: "Are you sure to do this.",
-      buttons: [
-        {
-          label: "Yes",
-          onClick: () => {
-            this.removeMovieById(id);
-            fetch("http://127.0.0.1:5050/movies/delete", {
-              method: "POST",
-              mode: "no-cors",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify(id)
-            });
-          }
-        },
-        {
-          label: "No",
-          onClick: () => null
-        }
-      ]
-    });
-  };
+  // removeMovieByIdFromServer = id => {
+  //   confirmAlert({
+  //     title: "Confirm to detete from server",
+  //     message: "Are you sure to do this.",
+  //     buttons: [
+  //       {
+  //         label: "Yes",
+  //         onClick: () => {
+  //           this.removeMovieById(id);
+  //           fetch("http://127.0.0.1:5050/movies/delete", {
+  //             method: "POST",
+  //             mode: "no-cors",
+  //             headers: {
+  //               "Content-Type": "application/json"
+  //             },
+  //             body: JSON.stringify(id)
+  //           });
+  //         }
+  //       },
+  //       {
+  //         label: "No",
+  //         onClick: () => null
+  //       }
+  //     ]
+  //   });
+  // };
 
   render() {
     const { movies } = this.state;
@@ -239,7 +239,6 @@ class Main extends Component {
                     removeItem={this.removeMovieById}
                     addMovieToWillWatch={this.addMovieToWillWatch}
                     removeMovieFromWillWatch={this.removeMovieFromWillWatch}
-                    removeMovieByIdFromServer={this.removeMovieByIdFromServer}
                   />
                 );
               } else {

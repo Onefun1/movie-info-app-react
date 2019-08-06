@@ -8,12 +8,12 @@ export default function Form(props) {
   const inputFormatRef = React.createRef();
   const inputStarsRef = React.createRef();
 
+  let date = new Date();
+  let currentYear = date.getFullYear();
+
   let [correct, setStatus] = useState(true);
 
   const handleSubmit = e => {
-    e.preventDefault();
-    let date = new Date();
-
     if (
       inputTitleRef.current.value &&
       inputYearRef.current.value &&
@@ -32,7 +32,7 @@ export default function Form(props) {
       props.addNewMovie(newMovie);
       inputTitleRef.current.value = "";
       inputYearRef.current.value = "";
-      inputFormatRef.current.value = "";
+      inputFormatRef.current.value = "DVD";
       inputStarsRef.current.value = "";
     } else {
       setStatus((correct = false));
@@ -63,9 +63,11 @@ export default function Form(props) {
         <label htmlFor="year">
           Year
           <input
-            type="text"
+            type="number"
             name="year"
             id="year"
+            min="1901"
+            max={currentYear}
             required
             placeholder="Enter year"
             autoComplete="off"
@@ -75,25 +77,24 @@ export default function Form(props) {
         </label>
         <label htmlFor="format">
           Format
-          <input
-            type="text"
-            name="format"
-            id="format"
-            required
-            placeholder="Enter format"
-            autoComplete="off"
-            ref={inputFormatRef}
-          />
+          <select type="text" name="format" id="format" ref={inputFormatRef}>
+            <option value="VHS">VHS</option>
+            <option selected value="DVD">
+              DVD
+            </option>
+            <option value="Blu-Ray">Blu-Ray</option>
+          </select>
         </label>
         <label htmlFor="stars">
           Actors
-          <textarea
+          <input
             type="text"
             name="stars"
             id="stars"
-            rows="2"
             required
             placeholder="FirstName LastName, FirstName LastName... "
+            autoComplete="off"
+            pattern="^[a-zA-Z][a-zA-Z-_\.\,]{1,20}$"
             ref={inputStarsRef}
           />
         </label>

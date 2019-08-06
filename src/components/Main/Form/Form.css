@@ -12,7 +12,7 @@
 }
 
 .form input,
-textarea {
+select {
   margin-bottom: 20px;
   margin-top: 5px;
   width: 100%;
@@ -23,7 +23,7 @@ textarea {
 }
 
 .form input:active,
-textarea:active {
+select:active {
   box-shadow: 0 0 15px black;
 }
 
