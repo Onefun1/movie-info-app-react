@@ -77,7 +77,7 @@ export default function Form(props) {
             required
             placeholder="Enter film title"
             autoComplete="off"
-            pattern="^[а-яА-ЯёЁa-zA-Z0-9- ]+$"
+            pattern="[\s.,A-Za-zАа-яёЁЇїІіЄєҐґ0-9-;:]+$"
             ref={inputTitleRef}
           />
         </label>
@@ -113,7 +113,7 @@ export default function Form(props) {
             required
             placeholder="FirstName LastName, FirstName LastName... "
             autoComplete="off"
-            pattern="[A-Za-zА-Яа-яЁё]+(\s+[A-Za-zА-Яа-яЁё,]+)?"
+            pattern="[A-Za-zА-Яа-яЁёЁЇїІіЄєҐґ]+(\s+[A-Za-zА-Яа-яЁёЁЇїІіЄєҐґ,]+)?"
             ref={inputStarsRef}
           />
         </label>

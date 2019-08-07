@@ -28,9 +28,11 @@ class Main extends Component {
     let file = e.target.files[0];
     let reader = new FileReader();
 
-    // if (file.type !== "text/plain") {     // проверка на тип файла отличающегося от txt
-    //   console.log(file.type);
-    // }
+    if (file.type !== "text/plain") {
+      // проверка на тип файла отличающегося от txt
+      this.setState({ error: "Wrong file type" });
+      return;
+    }
 
     reader.readAsText(file);
 
@@ -122,23 +124,13 @@ class Main extends Component {
   };
   sortByAbc = () => {
     let moviesSort = [...this.state.movies];
+
     if (!this.state.sort) {
-      moviesSort.sort(function(a, b) {
-        var nameA = a.title.toLowerCase(),
-          nameB = b.title.toLowerCase();
-        if (nameA < nameB) return -1;
-        if (nameA > nameB) return 1;
-        return 0;
-      });
+      moviesSort.sort((a, b) => a.title.toLowerCase().localeCompare(b.title));
     } else {
-      moviesSort.sort(function(a, b) {
-        var nameA = a.title.toLowerCase(),
-          nameB = b.title.toLowerCase();
-        if (nameA < nameB) return 1;
-        if (nameA > nameB) return -1;
-        return 0;
-      });
+      moviesSort.sort((a, b) => b.title.toLowerCase().localeCompare(a.title));
     }
+
     this.setState({
       movies: moviesSort,
       sort: !this.state.sort
@@ -168,7 +160,8 @@ class Main extends Component {
     });
 
     this.setState({
-      movies: [...this.state.movies, movie]
+      movies: [...this.state.movies, movie],
+      onload: true
     });
   };
 
