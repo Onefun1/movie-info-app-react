@@ -13,47 +13,83 @@ export default function Form(props) {
 
   let [correct, setStatus] = useState(true);
   let [send, formStatus] = useState(false);
+  let [title, titleStatus] = useState(true);
+  let [actors, actorsStatus] = useState(true);
+  let [year, yearStatus] = useState(true);
 
   let newMovie = {};
+  let validTitle;
+  let validActors;
+  let validYear;
 
-  const handleSubmit = () => {
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    validTitle = /[\s.,A-Za-zАа-яёЁЇїІіЄєҐґ0-9-;:]+/.test(
+      inputTitleRef.current.value
+    );
+    validActors = /[A-Z-А-ЯЁЁЇ]{1}[A-Za-zА-Яа-яЁёЁЇїІіЄєҐґ]+(\s+[A-Z-А-ЯЁЁЇ][A-Za-zА-Яа-яЁёЁЇїІіЄєҐґ,]{2,},?)/g.test(
+      inputStarsRef.current.value
+    );
+    validYear =
+      inputYearRef.current.value > 1900 &&
+      inputYearRef.current.value <= currentYear;
+
     if (
       inputTitleRef.current.value &&
       inputYearRef.current.value &&
       inputFormatRef.current.value &&
       inputStarsRef.current.value
     ) {
-      setStatus((correct = true));
-      newMovie = {
-        title: inputTitleRef.current.value,
-        year: inputYearRef.current.value,
-        format: inputFormatRef.current.value,
-        stars: inputStarsRef.current.value.split(","),
-        movieId: date.getTime() + Math.random()
-      };
+      if (validActors && validTitle && validYear) {
+        setStatus((correct = true));
+        newMovie = {
+          title: inputTitleRef.current.value,
+          year: inputYearRef.current.value,
+          format: inputFormatRef.current.value,
+          stars: inputStarsRef.current.value.split(","),
+          movieId: date.getTime() + Math.random()
+        };
+      } else {
+        validTitle ? titleStatus((title = true)) : titleStatus((title = false));
+        validActors
+          ? actorsStatus((actors = true))
+          : actorsStatus((actors = false));
+        validYear ? yearStatus((year = true)) : yearStatus((year = false));
+
+        return;
+      }
     } else {
       setStatus((correct = false));
+      formStatus((send = false));
+      titleStatus((title = true));
+      actorsStatus((actors = true));
+      yearStatus((year = true));
       return;
     }
-  };
 
-  const sendFormValues = e => {
-    e.preventDefault();
     props.addNewMovie(newMovie);
     inputTitleRef.current.value = "";
     inputYearRef.current.value = "";
     inputFormatRef.current.value = "VHS";
     inputStarsRef.current.value = "";
     formStatus((send = true));
+    titleStatus((title = true));
+    actorsStatus((actors = true));
+    yearStatus((year = true));
+    setStatus((correct = true));
   };
 
   const errorInlineStyle = {
     color: "red",
     textAlign: "center"
   };
+  const warningMessage = message => (
+    <p style={{ color: "red", marginTop: "0" }}>Sorry, {message}</p>
+  );
   return (
     <div className="contaiter__form">
-      <form className="form" onSubmit={sendFormValues}>
+      <form className="form">
         {send ? (
           <h4 style={{ color: "green" }}>Movie was added in your list</h4>
         ) : (
@@ -71,19 +107,20 @@ export default function Form(props) {
         <label htmlFor="title">
           Film title
           <input
+            className={title ? "" : "inputErrorValidator"}
             type="text"
             name="title"
             id="title"
-            required
             placeholder="Enter film title"
             autoComplete="off"
-            pattern="[\s.,A-Za-zАа-яёЁЇїІіЄєҐґ0-9-;:]+$"
             ref={inputTitleRef}
           />
+          {title ? "" : warningMessage(<span>wrong title</span>)}
         </label>
         <label htmlFor="year">
           Year
           <input
+            className={year ? "" : "inputErrorValidator"}
             type="number"
             name="year"
             id="year"
@@ -92,9 +129,11 @@ export default function Form(props) {
             required
             placeholder="Enter year"
             autoComplete="off"
-            pattern="[0-9]{4}"
             ref={inputYearRef}
           />
+          {year
+            ? ""
+            : warningMessage(<span>wrong year (1901-{currentYear})</span>)}
         </label>
         <label htmlFor="format">
           Format
@@ -107,15 +146,15 @@ export default function Form(props) {
         <label htmlFor="stars">
           Actors
           <input
+            className={actors ? "" : "inputErrorValidator"}
             type="text"
             name="stars"
             id="stars"
-            required
             placeholder="FirstName LastName, FirstName LastName... "
             autoComplete="off"
-            pattern="[A-Za-zА-Яа-яЁёЁЇїІіЄєҐґ]+(\s+[A-Za-zА-Яа-яЁёЁЇїІіЄєҐґ,]+)?"
             ref={inputStarsRef}
           />
+          {actors ? "" : warningMessage(<span>wrong Actors list</span>)}
         </label>
         <div className="wrapper__button">
           <button type="submit" onClick={e => handleSubmit(e)} className="btn">
