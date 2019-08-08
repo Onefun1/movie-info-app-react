@@ -1,0 +1,38 @@
+.contaiter__form {
+  display: flex;
+  flex-direction: column;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  letter-spacing: 5px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
+
+.form input,
+textarea {
+  margin-bottom: 20px;
+  margin-top: 5px;
+  width: 100%;
+  border-radius: 10px;
+  outline: none;
+  padding: 5px;
+  box-shadow: 0 0 10px black;
+}
+
+.form input:active,
+textarea:active {
+  box-shadow: 0 0 15px black;
+}
+
+.wrapper__button {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.form ::placeholder {
+  font-size: 12px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

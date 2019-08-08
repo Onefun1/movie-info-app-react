@@ -1,0 +1,79 @@
+.container__main {
+  padding: 25px;
+}
+
+.container__main--form,
+.container__main--moviesList {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 0 10px black;
+  background: url(../../img/background_img_main.jpg);
+  background-size: contain;
+  background-repeat: repeat;
+}
+
+.container__main--moviesList {
+  align-items: flex-start;
+  margin-top: 30px;
+}
+
+label > .inputFilter__input {
+  padding: 5px;
+  font-size: 20px;
+  outline: none;
+  width: 100%;
+  border-radius: 30px;
+  box-shadow: 0 5px 10px black;
+  text-align: center;
+}
+
+.inputFilter {
+  width: 100%;
+  padding-bottom: 25px;
+  margin-bottom: 45px;
+  border-bottom: 2px solid rgb(223, 221, 221);
+  text-align: center;
+}
+
+.getButton {
+  border-radius: 50%;
+  padding: 5px;
+  background-color: green;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  box-shadow: 0 0 10px green;
+  cursor: pointer;
+  outline: none;
+  transition: all 2s;
+}
+.getButton:hover {
+  border-radius: 20%;
+  box-shadow: 0 0 30px green;
+}
+
+.label_input_file {
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 10px;
+  color: green;
+  border: 1px solid green;
+  transition: ease 2s;
+}
+
+.file {
+  padding: 5px;
+}
+
+.label_input_file:hover {
+  box-shadow: 0 0 10px green;
+  background-color: green;
+  color: white;
+}
+
+.label_input_file input[type="file"] {
+  display: none;
+}
