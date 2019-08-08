@@ -126,9 +126,9 @@ class Main extends Component {
     let moviesSort = [...this.state.movies];
 
     if (!this.state.sort) {
-      moviesSort.sort((a, b) => a.title.toLowerCase().localeCompare(b.title));
+      moviesSort.sort((a, b) => a.title.localeCompare(b.title));
     } else {
-      moviesSort.sort((a, b) => b.title.toLowerCase().localeCompare(a.title));
+      moviesSort.sort((a, b) => b.title.localeCompare(a.title));
     }
 
     this.setState({
